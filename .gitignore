@@ -1,6 +1,2 @@
 .DS_Store
-mnet
-Makefile
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
+build*/
