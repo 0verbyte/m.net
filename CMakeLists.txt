@@ -1,14 +1,22 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-PROJECT(mnet)
+cmake_minimum_required(VERSION 2.6)
+project(mnet)
 
-SET(CMAKE_COLOR_MAKEFILE ON)
-SET(CMAKE_VERBOSE_MAKEFILE OFF)
-SET(CMAKE_INCLUDE_CURRENT_DIR TRUE)
-SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
+set(CMAKE_COLOR_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE OFF)
+set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
+set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 
-SET(CMAKE_AUTOMOC ON) # moc 
-SET(CMAKE_AUTORCC ON) # rcc
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
 
-ADD_EXECUTABLE(mnet "src/main.cc")
+include(platform)
+include(target)
+
+add_subdirectory(src)
+
+message(STATUS "--------------------------------------------------")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "--------------------------------------------------")

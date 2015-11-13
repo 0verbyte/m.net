@@ -1,7 +1,6 @@
-#include <iostream>
-
-using namespace std;
+#include <QDebug>
 
 int main(int argc, char **argv) {
-	cout << "Hello world\n";
+  qDebug() << "Hello, World!";
+  return 0;
 }
