@@ -1,14 +1,14 @@
 language: cpp
 
 compiler:
-	- gcc
-	- clang
+  - g++
+  - clang
 
 before_script: mkdir build && cd build && cmake ..
 
 script:
-	- make
+  - make
 
 os:
-	- linux
-	- osx
+  - linux
+  - osx
