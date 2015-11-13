@@ -19,4 +19,7 @@ add_subdirectory(src)
 
 message(STATUS "--------------------------------------------------")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+if (APPLE)
+  message(STATUS "OS X SDK: ${DEV_SDK}")
+endif()
 message(STATUS "--------------------------------------------------")
