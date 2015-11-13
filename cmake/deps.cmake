@@ -26,3 +26,5 @@ set(CMAKE_AUTOMOC ON) # moc when necessary.
 set(CMAKE_AUTORCC ON) # rcc when necessary.
 
 find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Widgets REQUIRED)
