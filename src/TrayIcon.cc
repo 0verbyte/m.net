@@ -26,11 +26,6 @@ TrayIcon::TrayIcon() {
     });
 
   setupMenu();
-
-  // TODO: Testing - remove later.
-  QTimer::singleShot(1000, [this]{
-      showMsg("title", "message");
-    });
 }
 
 void TrayIcon::showMsg(const QString &title, const QString &msg,
