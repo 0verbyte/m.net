@@ -7,6 +7,10 @@
 
 #include "TrayIcon.h"
 
+#ifdef MAC
+  #include "MacNotification.h"
+#endif
+
 TrayIcon::TrayIcon() {
   // TODO: Use better icon..
   QImage img(32, 32, QImage::Format_RGB888);
@@ -14,14 +18,29 @@ TrayIcon::TrayIcon() {
   setIcon(QPixmap::fromImage(std::move(img)));
 
   connect(&net, &Network::connected, [this]{
-      showMessage(tr("Connected"), tr("Connected to the Internet."));
+      showMsg(tr("Connected"), tr("Connected to the Internet."));
     });
 
   connect(&net, &Network::unconnected, [this](const QString &error) {
-      showMessage(tr("Not connected!"), error, QSystemTrayIcon::Critical);
+      showMsg(tr("Not connected!"), error, QSystemTrayIcon::Critical);
     });
 
   setupMenu();
+
+  // TODO: Testing - remove later.
+  QTimer::singleShot(1000, [this]{
+      showMsg("title", "message");
+    });
+}
+
+void TrayIcon::showMsg(const QString &title, const QString &msg,
+                       QSystemTrayIcon::MessageIcon icon, int timeoutMs) {
+#ifdef MAC
+  qDebug() << "mac notification:" << title << msg << icon << timeoutMs;
+  showMacMessage(title, msg, icon, timeoutMs);
+#else
+  showMessage(title, msg, icon, timeoutMs);
+#endif
 }
 
 void TrayIcon::setupMenu() {

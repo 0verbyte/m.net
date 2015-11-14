@@ -1,5 +1,10 @@
 set(NAME mnet)
 
+set(MAC_SRC "")
+if (APPLE)
+  set(MAC_SRC "MacNotification.mm")
+endif()
+
 add_executable(
   ${NAME}
 
@@ -10,6 +15,8 @@ add_executable(
 
   Network.h
   Network.cc
+
+  ${MAC_SRC}
   )
 
 qt5_use_modules(
@@ -19,3 +26,15 @@ qt5_use_modules(
   Widgets
   Network
   )
+
+if (APPLE)
+  find_library(
+    FOUNDATION
+    Foundation
+    )
+  mark_as_advanced(FOUNDATION)
+  target_link_libraries(
+    ${NAME}
+    ${FOUNDATION}
+    )
+endif()
