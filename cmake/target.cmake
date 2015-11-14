@@ -49,8 +49,7 @@ if (APPLE)
     ${APP_RESOURCES_DIR}
     )
 
-  set(plist "${CMAKE_SOURCE_DIR}/Info.plist")
-  message("Copying PList ${plist} to ${APP_CONTENTS_DIR}")
+  set(plist "${CMAKE_SOURCE_DIR}/res/Info.plist")
   file(COPY ${plist} DESTINATION ${APP_CONTENTS_DIR})
 
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${APP_BIN_DIR})
