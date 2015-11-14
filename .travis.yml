@@ -9,8 +9,7 @@ matrix:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-4.8']
       env:
-        - COMPILER=g++-4.8
-        - COMP=gcc
+        - COMP=g++-4.8
 
     - os: linux
       compiler: clang
@@ -19,20 +18,17 @@ matrix:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.7']
           packages: ['clang-3.7']
       env:
-        - COMPILER=clang++-3.7
-        - COMP=clang
+        - COMP=clang++-3.7
 
     - os: osx
       compiler: gcc
       env:
-        - COMPILER=g++-4.8
-        - COMP=gcc
+        - COMP=g++-4.8
 
     - os: osx
       compiler: clang
       env:
-        - COMPILER=clang++ V='Apple LLVM 6.0' # Apple LLVM version 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
-        - COMP=clang
+        - COMP=clang++ V='Apple LLVM 6.0' # Apple LLVM version 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
 
 before_install:
   - echo $LANG
@@ -40,7 +36,7 @@ before_install:
   - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install qt5; fi
   - if [ $TRAVIS_OS_NAME == linux ]; then echo y | sudo add-apt-repository ppa:beineri/opt-qt55; sudo apt-get update && sudo apt-get install -y qt55base; fi
 
-before_script: cmake .
+before_script: CXX=$COMP cmake .
 
 script:
   - make
