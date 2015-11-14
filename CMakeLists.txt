@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 2.8)
 project(mnet)
 
 set(CMAKE_COLOR_MAKEFILE ON)
