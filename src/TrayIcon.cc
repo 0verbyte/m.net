@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QImage>
 #include <QPixmap>
 
