@@ -5,7 +5,7 @@
 
 #include "Network.h"
 
-Network::Network() : connState(false) {
+Network::Network() : connState(true) {
   connect(&checkTimer, &QTimer::timeout, this, &Network::check);
 }
 
