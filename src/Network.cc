@@ -3,13 +3,16 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 
+#include <cassert>
+
 #include "Network.h"
 
 Network::Network() : connState(true) {
   connect(&checkTimer, &QTimer::timeout, this, &Network::check);
 }
 
-void Network::setInterval(unsigned int secs) {
+void Network::setInterval(int secs) {
+  assert(secs > 0);
   qDebug() << "Interval set to" << secs << "seconds";
   checkTimer.setInterval(secs * 1000);
   checkTimer.start();

@@ -12,7 +12,7 @@ public:
   Network();
 
   /// Set interval and (re)start timer.
-  void setInterval(unsigned int secs);
+  void setInterval(int secs);
 
 signals:
   void connected();
