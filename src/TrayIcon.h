@@ -2,6 +2,7 @@
 #define TRAY_ICON_H
 
 #include <QMenu>
+#include <QSettings>
 #include <QSystemTrayIcon>
 
 #include "Network.h"
@@ -17,6 +18,7 @@ private:
 
   QMenu ctxMenu;
   Network net;
+  QSettings settings;
 };
 
 #endif // TRAY_ICON_H

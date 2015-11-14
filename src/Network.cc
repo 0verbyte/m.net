@@ -14,6 +14,10 @@ Network::Network() : connState(true) {
 void Network::setInterval(int secs) {
   assert(secs > 0);
   qDebug() << "Interval set to" << secs << "seconds";
+  
+  // Store the seconds to disk for saving state
+  settings.setValue("mnet.interval", secs);
+
   checkTimer.setInterval(secs * 1000);
   checkTimer.start();
 }

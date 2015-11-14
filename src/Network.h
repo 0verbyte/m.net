@@ -3,6 +3,7 @@
 
 #include <QTimer>
 #include <QObject>
+#include <QSettings>
 #include <QNetworkAccessManager>
 
 class Network : public QObject {
@@ -28,6 +29,7 @@ private slots:
 private:
   bool connState;
   QTimer checkTimer;
+  QSettings settings;
   QNetworkAccessManager mgr;
 };
 

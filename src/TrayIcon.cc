@@ -41,7 +41,7 @@ void TrayIcon::setupMenu() {
         net.setInterval(val.second);
       });
 
-    if (val.second == 15) {
+    if (settings.value("mnet.interval", 15).toInt() == val.second) {
       act->setChecked(true);
       act->trigger();
     }
