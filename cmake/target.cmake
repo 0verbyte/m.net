@@ -49,8 +49,17 @@ if (APPLE)
     ${APP_RESOURCES_DIR}
     )
 
-  set(plist "${CMAKE_SOURCE_DIR}/res/Info.plist")
-  file(COPY ${plist} DESTINATION ${APP_CONTENTS_DIR})
+  # Substitute in the exact versions.
+  configure_file(
+    "${CMAKE_SOURCE_DIR}/res/Info.plist.in"
+    "${CMAKE_BINARY_DIR}/Info.plist"
+    @ONLY
+    )
+
+  file(
+    COPY "${CMAKE_BINARY_DIR}/Info.plist"
+    DESTINATION ${APP_CONTENTS_DIR}
+    )
 
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${APP_BIN_DIR})
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${CMAKE_BUILD_TYPE} ${APP_BIN_DIR})

@@ -1,0 +1,8 @@
+#ifndef VERSION_H
+#define VERSION_H
+
+#define MNET_VERSION_MAJOR 0
+#define MNET_VERSION_MINOR 1
+#define MNET_VERSION_BUILD 0
+
+#endif // VERSION_H
