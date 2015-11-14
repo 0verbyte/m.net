@@ -26,3 +26,7 @@ before_script: CXX=$COMP cmake .
 
 script:
   - make
+
+branches:
+  only:
+    - master
