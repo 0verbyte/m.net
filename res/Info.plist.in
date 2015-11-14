@@ -16,16 +16,12 @@
     <string>Terminal</string>
     <key>CFBundleIdentifier</key>
     <string>mnet</string>
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
     <key>CFBundleName</key>
     <string>mnet</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
     <string>MNET@VERSION_MAJOR@</string>
-    <key>CFBundleVersion</key>
-    <string>14</string>
     <key>LSMinimumSystemVersion</key>
     <string>10.8</string>
     <key>LSUIElement</key>
