@@ -4,6 +4,7 @@ if (NOT WIN32)
   set(
     CMAKE_PREFIX_PATH
     ${CMAKE_PREFIX_PATH}
+    "/opt/qt55"
     "/usr/local/opt"
     "/usr/local/opt/qt5"
     "/usr/local/Qt-5.4.1"
