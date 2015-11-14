@@ -11,6 +11,8 @@ public:
   TrayIcon();
 
 private:
+  void setupMenu();
+
   QMenu ctxMenu;
 };
 
