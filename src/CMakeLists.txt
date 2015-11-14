@@ -7,6 +7,9 @@ add_executable(
 
   TrayIcon.h
   TrayIcon.cc
+
+  Network.h
+  Network.cc
   )
 
 qt5_use_modules(
@@ -14,4 +17,5 @@ qt5_use_modules(
   Core
   Gui
   Widgets
+  Network
   )

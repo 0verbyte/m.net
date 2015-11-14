@@ -1,8 +1,10 @@
 #ifndef TRAY_ICON_H
 #define TRAY_ICON_H
 
-#include <QSystemTrayIcon>
 #include <QMenu>
+#include <QSystemTrayIcon>
+
+#include "Network.h"
 
 class TrayIcon : public QSystemTrayIcon {
   Q_OBJECT
@@ -14,6 +16,7 @@ private:
   void setupMenu();
 
   QMenu ctxMenu;
+  Network net;
 };
 
 #endif // TRAY_ICON_H

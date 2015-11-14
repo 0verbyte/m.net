@@ -13,6 +13,14 @@ TrayIcon::TrayIcon() {
   img.fill(Qt::green);
   setIcon(QPixmap::fromImage(std::move(img)));
 
+  connect(&net, &Network::connected, [this]{
+      showMessage(tr("Connected"), tr("Connected to the Internet."));
+    });
+
+  connect(&net, &Network::unconnected, [this](const QString &error) {
+      showMessage(tr("Not connected!"), error, QSystemTrayIcon::Critical);
+    });
+
   setupMenu();
 }
 
@@ -29,13 +37,13 @@ void TrayIcon::setupMenu() {
     act->setCheckable(true);
     agrp->addAction(act);
 
-    connect(act, &QAction::triggered, [val]{
-        // TODO: Use the interval value.
-        qDebug() << "Interval changed to" << val.second;
+    connect(act, &QAction::triggered, [val, this]{
+        net.setInterval(val.second);
       });
 
-    if (val.second == 30) {
+    if (val.second == 15) {
       act->setChecked(true);
+      act->trigger();
     }
   }
 
