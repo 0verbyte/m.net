@@ -31,7 +31,6 @@ TrayIcon::TrayIcon() {
 void TrayIcon::showMsg(const QString &title, const QString &msg,
                        QSystemTrayIcon::MessageIcon icon, int timeoutMs) {
 #ifdef MAC
-  qDebug() << "mac notification:" << title << msg << icon << timeoutMs;
   showMacMessage(title, msg, icon, timeoutMs);
 #else
   showMessage(title, msg, icon, timeoutMs);

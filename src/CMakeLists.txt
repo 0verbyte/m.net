@@ -25,6 +25,7 @@ qt5_use_modules(
   Gui
   Widgets
   Network
+  MacExtras
   )
 
 if (APPLE)
