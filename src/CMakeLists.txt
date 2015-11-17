@@ -25,10 +25,14 @@ qt5_use_modules(
   Gui
   Widgets
   Network
-  MacExtras
   )
 
 if (APPLE)
+  qt5_use_modules(
+    ${NAME}
+    MacExtras
+    )
+
   find_library(
     FOUNDATION
     Foundation
