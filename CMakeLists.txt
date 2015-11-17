@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
 project(mnet)
 
+option(test "Add googletest and compile the tests" OFF) 
+
+# Pass the flag -Dtest=ON to enable the tests
+if (test)
+	include("gtest/googletest/CMakeLists.txt")
+endif()
+
 set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
