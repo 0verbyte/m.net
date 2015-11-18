@@ -16,6 +16,9 @@ add_executable(
   Network.h
   Network.cc
 
+  Stats.h
+  Stats.cc
+
   ${MAC_SRC}
   )
 

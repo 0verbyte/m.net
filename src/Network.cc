@@ -32,12 +32,16 @@ void Network::check() {
 void Network::onReplyFinished() {
   auto *rep = qobject_cast<QNetworkReply*>(sender());
   if (!rep) return;
-
+  
+  // Update the stats
+  stat.ping(connState);
+  
   if (rep->error() == QNetworkReply::NoError) {
     if (!connState) {
       emit connected();
     }
     connState = true;
+
     return;
   }
 

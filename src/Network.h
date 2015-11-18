@@ -6,6 +6,8 @@
 #include <QSettings>
 #include <QNetworkAccessManager>
 
+#include "Stats.h"
+
 class Network : public QObject {
   Q_OBJECT
 
@@ -28,6 +30,7 @@ private slots:
 
 private:
   bool connState;
+  Stats stat;
   QTimer checkTimer;
   QSettings settings;
   QNetworkAccessManager mgr;
