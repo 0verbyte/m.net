@@ -4,6 +4,8 @@
 #include <QStyle>
 #include <QApplication>
 
+#include <sys/sysctl.h>
+
 #include "MacNotification.h"
 
 @interface MacNotification : NSObject <NSUserNotificationCenterDelegate>
@@ -33,6 +35,26 @@
 
 @end
 
+namespace {
+  bool isMavericksOrLater() {
+    char str[256];
+    auto size = sizeof(str);
+    auto ret = sysctlbyname("kern.osrelease", str, &size, nullptr, 0);
+    if (ret != 0) {
+      return false;
+    }
+
+    auto elms = QString(str).split(".");
+    if (elms.size() != 3) {
+      return false;
+    }
+
+    bool ok;
+    auto ver = elms[0].toInt(&ok);
+    return ok && ver >= 13;
+  }
+}
+
 void showMacMessage(const QString &title, const QString &msg,
                     QSystemTrayIcon::MessageIcon icon, int timeoutMs) {
   // NOTE: timeoutMs is ignored right now.
@@ -44,30 +66,33 @@ void showMacMessage(const QString &title, const QString &msg,
 
   // Convert icon to image, if given.
   NSImage *img = nil;
-  int iconVal = -1;
-  switch (icon) {
-  case QSystemTrayIcon::NoIcon:
-    break;
 
-  case QSystemTrayIcon::Information:
-    iconVal = QStyle::SP_MessageBoxInformation;
-    break;
+  if (isMavericksOrLater()) {
+    int iconVal = -1;
+    switch (icon) {
+    case QSystemTrayIcon::NoIcon:
+      break;
 
-  case QSystemTrayIcon::Warning:
-    iconVal = QStyle::SP_MessageBoxWarning;
-    break;
+    case QSystemTrayIcon::Information:
+      iconVal = QStyle::SP_MessageBoxInformation;
+      break;
 
-  case QSystemTrayIcon::Critical:
-    iconVal = QStyle::SP_MessageBoxCritical;
-    break;
-  }
+    case QSystemTrayIcon::Warning:
+      iconVal = QStyle::SP_MessageBoxWarning;
+      break;
 
-  if (iconVal != -1) {
-    auto ic = QApplication::style()->standardIcon((QStyle::StandardPixmap) iconVal);
-    auto sizes = ic.availableSizes();
-    if (!sizes.isEmpty()) {
-      auto pix = ic.pixmap(sizes.last());
-      img = QtMac::toNSImage(pix);
+    case QSystemTrayIcon::Critical:
+      iconVal = QStyle::SP_MessageBoxCritical;
+      break;
+    }
+
+    if (iconVal != -1) {
+      auto ic = QApplication::style()->standardIcon((QStyle::StandardPixmap) iconVal);
+      auto sizes = ic.availableSizes();
+      if (!sizes.isEmpty()) {
+        auto pix = ic.pixmap(sizes.last());
+        img = QtMac::toNSImage(pix);
+      }
     }
   }
 
