@@ -14,7 +14,7 @@ Network::Network() : connState(true) {
 void Network::setInterval(int secs) {
   assert(secs > 0);
   qDebug() << "Interval set to" << secs << "seconds";
-  
+
   // Store the seconds to disk for saving state
   settings.setValue("mnet.interval", secs);
 
@@ -32,21 +32,20 @@ void Network::check() {
 void Network::onReplyFinished() {
   auto *rep = qobject_cast<QNetworkReply*>(sender());
   if (!rep) return;
-  
-  // Update the stats
-  stat.ping(connState);
-  
+
   if (rep->error() == QNetworkReply::NoError) {
     if (!connState) {
       emit connected();
     }
     connState = true;
-
-    return;
+  }
+  else {
+    if (connState) {
+      emit unconnected(rep->errorString());
+    }
+    connState = false;
   }
 
-  if (connState) {
-    emit unconnected(rep->errorString());
-  }
-  connState = false;
+  // Update the stats.
+  stat.ping(connState);
 }
