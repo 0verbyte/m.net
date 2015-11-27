@@ -6,19 +6,15 @@
 #include "Stats.h"
 
 Stats::Stats() {
+  // Create the mnet directory if it doesn't exist
   QDir mnetPath;
   if (!mnetPath.exists(mnetDir)) {
     mnetPath.mkdir(mnetDir);
     return;
   }
 
-  QFile jsonFile(statsFilePath);
-  if (!jsonFile.open(QIODevice::ReadOnly)) {
-    return;
-  }
-
-  QByteArray statsData = jsonFile.readAll();
-  statsJson = fromJson(statsData).object();
+  // If a stats file is present already, read that into memory
+  readStatsFile();
 }
 
 // Generate a stat for when connection is tested
@@ -46,3 +42,14 @@ bool Stats::writeStatsFile() {
   return true;
 }
 
+bool Stats::readStatsFile() {
+  QFile jsonFile(statsFilePath);
+  if (!jsonFile.open(QIODevice::ReadOnly)) {
+    return false;
+  }
+
+  // Load the stats file into JSON object
+  QByteArray statsData = jsonFile.readAll();
+  statsJson = fromJson(statsData).object();
+  return true;
+}

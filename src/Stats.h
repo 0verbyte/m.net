@@ -12,7 +12,6 @@ class Stats : public QJsonDocument {
   public:
     Stats();
     void ping(bool connected);
-    bool writeStatsFile();
 
   private:
     QJsonArray statsPing;
@@ -21,6 +20,9 @@ class Stats : public QJsonDocument {
     QJsonObject statsJson;
     QString statsFilePath = QDir::homePath() + "/.mnet/stats.json";
     QString mnetDir = QDir::homePath() + "/.mnet";
+
+    bool writeStatsFile();
+    bool readStatsFile();
 };
 
 #endif // STATS_H
