@@ -4,7 +4,7 @@
 #include <QStyle>
 #include <QApplication>
 
-#include <sys/sysctl.h>
+#include <Availability.h>
 
 #include "MacNotification.h"
 
@@ -26,7 +26,10 @@
   NSUserNotification *notif = [[[NSUserNotification alloc] init] autorelease];
   notif.title = title;
   notif.informativeText = msg;
-  notif.contentImage = image;
+
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= 1090
+    notif.contentImage = image;
+#endif
 
   NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
   center.delegate = self;
@@ -34,26 +37,6 @@
 }
 
 @end
-
-namespace {
-  bool isMavericksOrLater() {
-    char str[256];
-    auto size = sizeof(str);
-    auto ret = sysctlbyname("kern.osrelease", str, &size, nullptr, 0);
-    if (ret != 0) {
-      return false;
-    }
-
-    auto elms = QString(str).split(".");
-    if (elms.size() != 3) {
-      return false;
-    }
-
-    bool ok;
-    auto ver = elms[0].toInt(&ok);
-    return ok && ver >= 13;
-  }
-}
 
 void showMacMessage(const QString &title, const QString &msg,
                     QSystemTrayIcon::MessageIcon icon, int timeoutMs) {
@@ -67,34 +50,34 @@ void showMacMessage(const QString &title, const QString &msg,
   // Convert icon to image, if given.
   NSImage *img = nil;
 
-  if (isMavericksOrLater()) {
-    int iconVal = -1;
-    switch (icon) {
-    case QSystemTrayIcon::NoIcon:
-      break;
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= 1090
+  int iconVal = -1;
+  switch (icon) {
+  case QSystemTrayIcon::NoIcon:
+    break;
 
-    case QSystemTrayIcon::Information:
-      iconVal = QStyle::SP_MessageBoxInformation;
-      break;
+  case QSystemTrayIcon::Information:
+    iconVal = QStyle::SP_MessageBoxInformation;
+    break;
 
-    case QSystemTrayIcon::Warning:
-      iconVal = QStyle::SP_MessageBoxWarning;
-      break;
+  case QSystemTrayIcon::Warning:
+    iconVal = QStyle::SP_MessageBoxWarning;
+    break;
 
-    case QSystemTrayIcon::Critical:
-      iconVal = QStyle::SP_MessageBoxCritical;
-      break;
-    }
+  case QSystemTrayIcon::Critical:
+    iconVal = QStyle::SP_MessageBoxCritical;
+    break;
+  }
 
-    if (iconVal != -1) {
-      auto ic = QApplication::style()->standardIcon((QStyle::StandardPixmap) iconVal);
-      auto sizes = ic.availableSizes();
-      if (!sizes.isEmpty()) {
-        auto pix = ic.pixmap(sizes.last());
-        img = QtMac::toNSImage(pix);
-      }
+  if (iconVal != -1) {
+    auto ic = QApplication::style()->standardIcon((QStyle::StandardPixmap) iconVal);
+    auto sizes = ic.availableSizes();
+    if (!sizes.isEmpty()) {
+      auto pix = ic.pixmap(sizes.last());
+      img = QtMac::toNSImage(pix);
     }
   }
+#endif
 
   MacNotification *mn = [[[MacNotification alloc] init] autorelease];
   [mn showNotificationWithTitle:title_ message:msg_ image:img];
