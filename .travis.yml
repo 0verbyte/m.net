@@ -25,7 +25,7 @@ before_install:
 before_script: CXX=$COMP cmake .
 
 script:
-  - make
+  - VERBOSE=1 make
 
 branches:
   only:
