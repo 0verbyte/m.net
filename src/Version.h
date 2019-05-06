@@ -5,4 +5,4 @@
 #define MNET_VERSION_MINOR 1
 #define MNET_VERSION_BUILD 0
 
-#endif // VERSION_H
+#endif  // VERSION_H

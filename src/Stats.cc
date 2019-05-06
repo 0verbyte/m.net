@@ -1,7 +1,7 @@
-#include <QFile>
-#include <QDebug>
-#include <QDateTime>
 #include <QByteArray>
+#include <QDateTime>
+#include <QDebug>
+#include <QFile>
 
 #include "Stats.h"
 

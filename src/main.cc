@@ -1,6 +1,6 @@
+#include <QApplication>
 #include <QDebug>
 #include <QTimer>
-#include <QApplication>
 
 #include <signal.h>
 

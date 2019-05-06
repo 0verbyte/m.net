@@ -10,14 +10,14 @@
 class TrayIcon : public QSystemTrayIcon {
   Q_OBJECT
 
-public:
+ public:
   TrayIcon();
 
   void showMsg(const QString &title, const QString &msg,
                QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information,
                int timeoutMs = 10000);
 
-private:
+ private:
   void setupMenu();
 
   QMenu ctxMenu;
@@ -25,4 +25,4 @@ private:
   QSettings settings;
 };
 
-#endif // TRAY_ICON_H
+#endif  // TRAY_ICON_H

@@ -1,7 +1,7 @@
-#include <QUrl>
 #include <QDebug>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QUrl>
 
 #include <cassert>
 
@@ -23,14 +23,14 @@ void Network::setInterval(int secs) {
 }
 
 void Network::check() {
-  QUrl url("http://google.com");
+  QUrl url("https://google.com");
   QNetworkRequest req(url);
   auto *rep = mgr.get(req);
   connect(rep, &QNetworkReply::finished, this, &Network::onReplyFinished);
 }
 
 void Network::onReplyFinished() {
-  auto *rep = qobject_cast<QNetworkReply*>(sender());
+  auto *rep = qobject_cast<QNetworkReply *>(sender());
   if (!rep) return;
 
   if (rep->error() == QNetworkReply::NoError) {
@@ -38,8 +38,7 @@ void Network::onReplyFinished() {
       emit connected();
     }
     connState = true;
-  }
-  else {
+  } else {
     if (connState) {
       emit unconnected(rep->errorString());
     }

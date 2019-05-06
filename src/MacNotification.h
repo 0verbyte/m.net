@@ -3,7 +3,7 @@
 
 #include <QSystemTrayIcon>
 
-void showMacMessage(const QString &title, const QString &msg, QSystemTrayIcon::MessageIcon icon,
-                    int timeoutMs);
+void showMacMessage(const QString &title, const QString &msg,
+                    QSystemTrayIcon::MessageIcon icon, int timeoutMs);
 
-#endif // MAC_NOTIFICATION_H
+#endif  // MAC_NOTIFICATION_H

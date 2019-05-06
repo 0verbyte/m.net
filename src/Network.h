@@ -1,34 +1,34 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include <QTimer>
+#include <QNetworkAccessManager>
 #include <QObject>
 #include <QSettings>
-#include <QNetworkAccessManager>
+#include <QTimer>
 
 #include "Stats.h"
 
 class Network : public QObject {
   Q_OBJECT
 
-public:
+ public:
   Network();
 
   /// Set interval and (re)start timer.
   void setInterval(int secs);
 
-signals:
+ signals:
   void connected();
   void unconnected(const QString &error = QString());
 
-public slots:
+ public slots:
   /// Checks internet connectivity.
   void check();
 
-private slots:
+ private slots:
   void onReplyFinished();
 
-private:
+ private:
   bool connState;
   Stats stat;
   QTimer checkTimer;
@@ -36,4 +36,4 @@ private:
   QNetworkAccessManager mgr;
 };
 
-#endif // NETWORK_H
+#endif  // NETWORK_H
