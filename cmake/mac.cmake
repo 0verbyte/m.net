@@ -1,4 +1,12 @@
-set(SDKs 10.8 10.9 10.10 10.11)
+# TODO clean up older SDK version
+set(SDKs
+    10.8
+    10.9
+    10.10
+    10.11
+    10.12
+    10.13
+    10.14)
 
 foreach (sdk IN LISTS SDKs)
   set(SDK ${sdk})
